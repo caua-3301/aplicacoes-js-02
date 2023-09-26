@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bigger and Smaller</title>
+
+    <style>
+        body {
+            background-color: rgb(15, 1, 15);
+            width: 99%;
+            height: 100%;
+        }
+
+        h1 {
+            font: normal bold 2em sans-serif;
+        }
+
+        #container-card {
+            width: 400px;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 20px;
+            margin: 100px auto 0 auto;
+            height: 450px;
+        }
+
+        #saida {
+            height: auto;
+            padding: 5px;
+            margin: 80px auto 20px auto;
+            border-radius: 20px;
+            background-color: rgb(255, 221, 255);
+        }
+
+        p {
+            font: normal normal 1em sans-serif;
+    
+        }
+
+        #quest {
+            font: normal bold 1em sans-serif;
+        }
+
+        #inputs{
+            text-align: left;
+            height: 80px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #achar{
+            background-color: rgb(74, 3, 74);
+            border-radius:20px;
+            cursor: pointer;
+            width: 90px;
+            height: 30px;
+            border: none;
+            color: rgb(255, 255, 255);
+            transition: .5s;
+        }
+
+        #achar:hover{
+            background-color: rgb(122, 8, 122);
+            transition: .5s;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="container-card">
+        <h1>Bigger and Smaller</h1>
+
+        <div id="inputs">
+            <p>
+                <label for="separador">Digite o caractere separador</label>
+                <input type="text" name="caract" id="separador">
+            </p>
+            <p>
+                <label for="num">Informe os números: </label>
+                <input type="text" name="numero" id="num">
+            </p>
+        </div>
+
+        <p id="saida"></p>
+
+        <button id="achar">ACHAR</button>
+    </div>
+
+    <script src="./script01.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Film</title>
+
+    <style>
+        body{
+            background-color: rgb(15, 1, 15);
+            width: 99%;
+            height: 100%;
+        }
+        h1{
+            font: normal bold 2em sans-serif;
+        }
+        #container-card{
+            width: 400px;
+            background-color: rgb(255, 255, 255);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 20px;
+            margin: 100px auto 0 auto;
+            height: 450px;
+        }
+
+        #saida{
+            overflow-y: scroll;
+            height: auto;
+            padding: 5px;
+            border-radius: 20px;
+            background-color: rgb(255, 221, 255);
+        }
+
+        p{
+            font: normal normal 1em sans-serif;
+        }
+
+        #quest{
+            font: normal bold 1em sans-serif;
+        }
+
+
+    </style>
+
+</head>
+<body>
+    <div id="container-card">
+        <h1>Filter Film</h1>
+
+        <p id="quest"><label for="procurar">Procurando algo? </label> <input type="text" id="procurar" placeholder="Pesquise aqui..."></p>
+
+        <div id="saida">
+
+        </div>
+    </div>
+
+    <script src="./script03.js" ></script>
+</body>
+</html>
