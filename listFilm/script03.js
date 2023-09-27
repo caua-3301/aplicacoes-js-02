@@ -67,14 +67,12 @@ const filmes = [{
 
 function filtrar() {
     saida.innerHTML = ' '
-    
-    for (let film of filmes){
 
-        if (film.titulo.toLowerCase().includes(filtro.value.toLowerCase())) {
-            saida.innerHTML += `<p>${film.titulo}   -   ${film.lancamento} </p>`
-        }
-        
-        
+    //filme dentro do filter é o item do array filmes, e essa condição, ja serve como teste (retornando bool), 
+    let novoArray = filmes.filter(filme => filme.titulo.toLowerCase().includes(filtro.value.toLowerCase()));
+
+    for (let film of novoArray) {
+        saida.innerHTML += `<p>${film.titulo}   --   ${film.lancamento} </p>`
     }
 }
 
