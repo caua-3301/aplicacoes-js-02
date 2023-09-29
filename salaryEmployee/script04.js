@@ -8,10 +8,12 @@ let nomeFuncionario = document.querySelector("#nome-funcionario")
 let salarioFun = document.querySelector("#salario")
 let filtro = document.querySelector("#filtrar")
 let saida = document.querySelector("#saida")
+let somaSalarios = document.querySelector("#soma-salarios")
+let maiorSalario = document.querySelector("#maior-salario")
+
 
 //Recebendo do localstorage o item "listaFUncionarios"
 let listaFuncionarios = JSON.parse(localStorage.getItem("listaFuncionarios"))
-
 
 //Caso não exista, é criado
 if (listaFuncionarios === null) {
@@ -21,14 +23,16 @@ if (listaFuncionarios === null) {
 }
 
 //Exibindo lista, para cada objeto da minha lista, um elemento html é criado
-function exibirLista() {
+function exibirLista(lista) {
 
-    saida.innerHTML = ' '
+    saida.innerHTML = ''
 
-    for (let funcionario of listaFuncionarios) {
+    for (let funcionario of lista) {
         let item = criarHtml(funcionario.nome, funcionario.salario, funcionario.id)
         saida.innerHTML += item
     }
+    somaDosSalarios()
+    funcMaiorSalario()
 }
 
 //Gernando um novo id a cada execução de adiconar item
@@ -37,6 +41,7 @@ function newId() {
 }
 
 function removerFuncionario(id) {
+    filtro.value = ''
     //Pegando o item filtrando pelo o seu id
     let novaLista = listaFuncionarios.filter(item => (item.id === id))[0]
 
@@ -47,35 +52,15 @@ function removerFuncionario(id) {
     //Adicionando no localStorage
     localStorage.setItem("listaFuncionarios", JSON.stringify(listaFuncionarios))
 
-    console.log(indice)
-    //Pegando ul > li para remover o elemnto html
-    let itemRemove = saida.getElementsByTagName("li")[indice]
-    saida.removeChild(itemRemove)
-
-    filtro.value = ' '
-
-    exibirLista()
+    exibirLista(listaFuncionarios)
 }
 
+//Aproveitando o codigo da outra questão
 function filtrar() {
-    saida.innerHTML = ' '
 
-    for (let funcionario of listaFuncionarios) {
+        let novoArray = listaFuncionarios.filter(func => func.nome.toLowerCase().includes(filtro.value.toLowerCase()));
 
-
-
-        if (funcionario.nome.toLowerCase().includes(filtro.value.toLowerCase())) {
-            saida.innerHTML += `<li>
-            <p>Nome do funcionário: <strong>${funcionario.nome}</strong></p>
-            <p>Salário: <strong> ${funcionario.salario} R$</strong></p>
-            <span class="material-symbols-outlined" id="close" onclick="removerFuncionario(${funcionario.id})">
-                close
-            </span>
-        </li></p>`
-        }
-
-        console.log(funcionario.id + 'filtro')
-    }
+        exibirLista(novoArray)
 }
 
 function criarHtml(nome, salario, id) {
@@ -92,11 +77,18 @@ function criarHtml(nome, salario, id) {
     return item
 }
 
+function somaDosSalarios() {
+    let soma = 0;
+    for (let func of listaFuncionarios) {
+        soma += Number(func.salario)
+    }
+    somaSalarios.innerHTML = `${soma}`  
+}
 
 function adicionarFuncionario(nome, salario) {
 
     //Gerando um novo id para cada execução
-    let id = newId()-1
+    let id = newId()
 
     //Nova lsitaFuncionarios com os valores anteriores (rest ...) mais o novo a ser adicionado
     listaFuncionarios = [...listaFuncionarios, { nome: nome, salario: salario, id: id }]
@@ -108,14 +100,24 @@ function adicionarFuncionario(nome, salario) {
     let item = document.createElement("li")
     saida.appendChild(item)
 
-    console.log(id)
-
-    nomeFuncionario.value = ' '
-    salarioFun.value = ' '
+    nomeFuncionario.value = ''
+    salarioFun.value = ''
     nomeFuncionario.focus()
-    exibirLista()
+    exibirLista(listaFuncionarios)
+}
 
-
+//Nome do mais bem pago
+function funcMaiorSalario() {
+    let maior = 0
+    let nomeMaior = 'Lista vazia'
+    for (let funcionario of listaFuncionarios) {
+        console.log(funcionario.salario)
+        if (funcionario.salario >= maior) {
+             maior = funcionario.salario
+             nomeMaior = funcionario.nome
+        }
+    }
+    maiorSalario.innerHTML = nomeMaior
 }
 
 ativa.addEventListener("click", () => adicionarFuncionario(nomeFuncionario.value, salario.value))
@@ -127,5 +129,5 @@ nomeFuncionario.addEventListener("keyup", (e) => {
 })
 
 filtro.addEventListener("keyup", filtrar)
-exibirLista()
+exibirLista(listaFuncionarios)
 //localStorage.removeItem("listaFuncionarios")
